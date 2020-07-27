@@ -1,0 +1,3 @@
+Practices:
+    consistent camel case;
+    consistent semicolon;

@@ -8,6 +8,9 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+  //alert("name?")
+  //create player
+  //game.add(player)
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
