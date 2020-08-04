@@ -1,21 +1,25 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
+const Game = require('./game.js');
+const Player = require('./player.js');
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
+const io = require('socket.io')(3000)
 
-io.on('connection', function(socket){
-  name = prompt("What is your name?")
-  //create player
-  //game.add(player)
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
+const users = {}
 
-http.listen(port, function(){
-  console.log('listening on *:' + port);
-});
+
+//actually create dictionary class
+const game = new Game("None");
+
+io.on('connection', socket => {
+  socket.on('new-user', name => {
+    console.log("user arrived");
+    users[socket.id] = new Player(name);
+    game.addPlayer(users[socket.id]);
+    socket.broadcast.emit('user-connected', name)
+  })
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user-disconnected', users[socket.id]);
+    game.removePlayer(users[socket.id]);
+    delete users[socket.id]
+  })
+})

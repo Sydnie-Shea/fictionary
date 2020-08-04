@@ -8,3 +8,5 @@ class Player {
         this.score += points;
     }
 }
+
+module.exports = Player;

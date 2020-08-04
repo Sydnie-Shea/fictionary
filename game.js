@@ -1,8 +1,9 @@
+
 class Game {
     constructor(diction) {
         this.players = []; 
         this.currentHolder = 0;  
-        this.dictionary = diciton; 
+        this.dictionary = diction; 
     }
     addPlayer(player) {
         this.players.push(player);
@@ -61,3 +62,5 @@ class Game {
 
 
 }
+
+module.exports = Game;
