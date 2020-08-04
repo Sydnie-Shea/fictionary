@@ -16,7 +16,7 @@ class Game {
         this.currentFakeDef = {};
         this.currentHolder += 1;
         this.correctGuess = 0;
-        if (this.currentHolder == length(this.players)) {
+        if (this.currentHolder == this.players.length) {
             this.currentHolder = 0;
         }
         this.currentHolderPlayer = this.players[this.currentHolder];
@@ -57,6 +57,14 @@ class Game {
         if (this.correctGuess > 0) {
             this.currentHolderPlayer.scoreChange(2);
         }
+    }
+
+    getCurrentWord() {
+        return this.currentWordInfo;
+    }
+
+    getCurrentHolder() {
+        return this.currentHolderPlayer;
     }
 
 
