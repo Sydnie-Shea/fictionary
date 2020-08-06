@@ -67,6 +67,30 @@ class Game {
         return this.currentHolderPlayer;
     }
 
+    getWordsToShow(playerHolder) {
+        this.currentFakeDef["actual"] = this.currentDefinition;
+        console.log(this.players)
+        this.orderedPlayers = [];
+        for (var player in this.players) {
+            if (this.players[player] != playerHolder) {
+                this.orderedPlayers.push(this.players[player]);
+            }
+        }
+        this.orderedPlayers.push("actual");
+        console.log(this.orderedPlayers);
+        this.shuffle(this.orderedPlayers);
+        console.log(this.orderedPlayers);
+        console.log(this.currentFakeDef);
+        this.orderedDefs = [];
+        for (var i = 1; i < this.orderedPlayers.length +1; i++) {
+            this.orderedDefs.push(i + this.currentFakeDef[this.orderedPlayers[i-1]]);
+        }
+        return this.orderedDefs;
+    }
+    shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+      }
+      
 
 
 }

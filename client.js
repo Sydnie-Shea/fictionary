@@ -8,12 +8,16 @@ const acceptButton = document.getElementById('accept');
 const defWriting = document.getElementById('fakeDefinition');
 const sendButton = document.getElementById('send-button');
 const guessTimeButton = document.getElementById('guessTime');
+const guessNum = document.getElementById('guessNum');
+const guessSubmit = document.getElementById('guess');
 
 newWordButton.style.display="none";
 acceptButton.style.display="none";
 defWriting.style.display="none";
 sendButton.style.display="none";
 guessTimeButton.style.display="none";
+guessNum.style.display="none";
+guessSubmit.style.display="none";
 
 const name = prompt('What is your name?');
 appendMessage('You joined');
@@ -48,7 +52,7 @@ socket.on('show-word', word => {
     appendMessage(`${word} is the word for this round. Write a definition`)
     defWriting.style.display = "block";
     sendButton.style.display = "block";
-})
+});
 
 socket.on('fake-def-received', defInfo => {
     console.log("getting here");
@@ -56,7 +60,17 @@ socket.on('fake-def-received', defInfo => {
     if (defInfo['holder'] == socket.id) {
         appendMessage(`${defInfo['playerName']} submitted ${defInfo['def']}`);
     }
-})
+});
+
+socket.on('fake-def', turnInfo => {
+    if (socket.id != turnInfo["holdersid"]) {
+        guessNum.style.display = "block";
+        guessSubmit.style.display = "block";
+    }
+    for (word in turnInfo["defs"]) {
+        appendMessage(turnInfo["defs"][word]);
+    }
+});
 
 startButton.addEventListener('click', button => {
     socket.emit('started', name);
@@ -74,13 +88,19 @@ acceptButton.addEventListener('click', button => {
 });
 
 sendButton.addEventListener('click', button => {
-    button.preventDefault()
+    button.preventDefault();
     var def = defWriting.value;
     defWriting.value = "";
     defWriting.style.display = "none";
     sendButton.style.display = "none";
     socket.emit('submit-fake-def', def);
 });
+
+guessTimeButton.addEventListener('click', button => {
+    button.preventDefault();
+    guessTimeButton.style.display = "none";
+    socket.emit('show-fake-def');
+})
 
 function appendMessage(message) {
     console.log(message);
