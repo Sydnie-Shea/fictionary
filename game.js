@@ -3,7 +3,8 @@ class Game {
     constructor(diction) {
         this.players = []; 
         this.currentHolder = 0;  
-        this.dictionary = diction; 
+        this.dictionary = diction;
+        this.numGuesses = 0;
     }
     addPlayer(player) {
         this.players.push(player);
@@ -14,9 +15,10 @@ class Game {
     }
     startRound() {
         this.currentFakeDef = {};
+        this.numGuesses = 0;
         this.currentHolder += 1;
         this.correctGuess = 0;
-        if (this.currentHolder == this.players.length) {
+        if (this.currentHolder >= this.players.length) {
             this.currentHolder = 0;
         }
         this.currentHolderPlayer = this.players[this.currentHolder];
@@ -45,16 +47,23 @@ class Game {
     }
 
     guess(player, guess) {
-        if (guess == "actual") {
+        if (this.orderedPlayers[guess] == "actual") {
             this.correctGuess += 1;
             player.scoreChange(1);
         } else {
-            guess.scoreChange(1);
+            console.log(this.orderedPlayers);
+            console.log(this.orderedPlayers[guess]);
+            this.orderedPlayers[guess].scoreChange(1);
         }
+        this.numGuesses += 1;
+    }
+
+    doneGuess() {
+        return this.numGuesses = this.players.length -1;
     }
 
     endRound() {
-        if (this.correctGuess > 0) {
+        if (this.correctGuess == 0) {
             this.currentHolderPlayer.scoreChange(2);
         }
     }
@@ -83,7 +92,7 @@ class Game {
         console.log(this.currentFakeDef);
         this.orderedDefs = [];
         for (var i = 1; i < this.orderedPlayers.length +1; i++) {
-            this.orderedDefs.push(i + this.currentFakeDef[this.orderedPlayers[i-1]]);
+            this.orderedDefs.push(i + " - " +this.currentFakeDef[this.orderedPlayers[i-1]]);
         }
         return this.orderedDefs;
     }
@@ -91,7 +100,33 @@ class Game {
         array.sort(() => Math.random() - 0.5);
       }
       
+    getPlayers() {
+        return this.players;
+    }
 
+    getSids() {
+        var temp = [];
+        for (var i = 0; i<this.players.length; i++) {
+            temp.push(this.players[i].getSocketId());
+        }    
+        return temp;
+    }
+
+    getNames() {
+        var temp = [];
+        for (var i = 0; i<this.players.length; i++) {
+            temp.push(this.players[i].getName());
+        }    
+        return temp;
+    }
+
+    getScores() {
+        var temp = [];
+        for (var i = 0; i<this.players.length; i++) {
+            temp.push(this.players[i].getScore());
+        }    
+        return temp;
+    }
 
 }
 

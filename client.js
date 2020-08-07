@@ -72,8 +72,20 @@ socket.on('fake-def', turnInfo => {
     }
 });
 
+socket.on('round-ended', valueInfo => {
+    var names = valueInfo['names'];
+    var scores = valueInfo['scores'];
+    console.log(scores);
+    for (i = 0; i< names.length; i++) {
+        appendMessage(`${names[i]} has a score of ${scores[i]}`);
+    }
+    if (socket.id == valueInfo['sids'][0]){
+        socket.emit('started');
+    }
+});
+
 startButton.addEventListener('click', button => {
-    socket.emit('started', name);
+    socket.emit('started');
 });
 
 newWordButton.addEventListener('click', button => {
@@ -100,6 +112,15 @@ guessTimeButton.addEventListener('click', button => {
     button.preventDefault();
     guessTimeButton.style.display = "none";
     socket.emit('show-fake-def');
+})
+
+guessSubmit.addEventListener('click', button => {
+    button.preventDefault();
+    var guess = parseInt(guessNum.value) - 1;
+    guessNum.value = "";
+    guessNum.style.display = "none";
+    guessSubmit.style.display = "none";
+    socket.emit("guessing", guess);
 })
 
 function appendMessage(message) {

@@ -16,6 +16,10 @@ class Player {
     getName() {
         return this.name;
     }
+
+    getScore() {
+        return this.score;
+    }
 }
 
 module.exports = Player;
