@@ -50,11 +50,11 @@
   <button id ="accept">Accept Definition</button>
   <button id = "guessTime">Time to Guess</button>
   <div id="message-container"></div>
-  <form id="send-container">
+  <form id="send-container" onSubmit="return false;">
     <input type="text" id="fakeDefinition">
   </form>
   <button id="send-button">Send</button>
-  <form id ="guess-container">
+  <form id ="guess-container" onSubmit="return false;">
     <input type = "text" id="guessNum">
   </form>
   <button id="guess">Guess</button>
