@@ -12,6 +12,7 @@ const nameEntry = document.getElementById('name');
 const joinButton = document.getElementById('join');
 const guessNum = document.getElementById('guessNum');
 const guessSubmit = document.getElementById('guess');
+const fakeDefForm = document.getElementById('send-container');
 
 newWordButton.style.display="none";
 acceptButton.style.display="none";
@@ -110,8 +111,9 @@ acceptButton.addEventListener('click', button => {
 });
 
 sendButton.addEventListener('click', button => {
-    button.preventDefault();
+    // button.preventDefault();
     var def = defWriting.value;
+    console.log('button clicked')
     defWriting.value = "";
     defWriting.style.display = "none";
     sendButton.style.display = "none";
@@ -131,6 +133,10 @@ guessSubmit.addEventListener('click', button => {
     guessNum.style.display = "none";
     guessSubmit.style.display = "none";
     socket.emit("guessing", guess);
+})
+
+fakeDefForm.addEventListener('submit', () => {
+    sendButton.click();
 })
 
 function appendMessage(message) {
