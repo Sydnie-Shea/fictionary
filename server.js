@@ -27,7 +27,7 @@ io.on('connection', socket => {
     delete users[socket.id]
   });
 
-  socket.on('started', name =>{
+  socket.on('started', () =>{
     console.log("arriving on server side");
     holder = game.startRound().getSocketId();
     word = game.determineWord();
@@ -35,6 +35,7 @@ io.on('connection', socket => {
       'holder': holder,
       'word': word
     };
+    console.log(gameInfo);
     io.sockets.emit('round-started', gameInfo);
   });
 
@@ -60,7 +61,34 @@ io.on('connection', socket => {
     };
     game.fakeDefinition(currentPlayer, def);
     socket.broadcast.emit('fake-def-received', defInfo);
-    //io.sockets.socket(game.getCurrentHolder().getSocketId()).emit('fake-def-received', defInfo);
-    //io.clients[game.getCurrentHolder().getSocketId()].emit('fake-def-received', defInfo);
+  });
+
+  socket.on('show-fake-def', () => {
+    console.log("getting to fake def");
+    defs = game.getWordsToShow(users[socket.id]);
+    console.log(defs);
+    turnInfo = {
+      'holder': users[socket.id],
+      'holdersid': users[socket.id].getSocketId(),
+      'defs': defs
+    }
+    io.sockets.emit('fake-def', turnInfo)
+
+  });
+
+  socket.on('guessing', guess => {
+    game.guess(users[socket.id], guess);
+    if (game.doneGuess()) {
+      game.endRound();
+      valueInfo = {
+        'players': game.getPlayers(),
+        'sids': game.getSids(),
+        'names': game.getNames(),
+        'scores': game.getScores()
+      };
+      console.log(valueInfo);
+      io.sockets.emit('round-ended', valueInfo);
+    }
+    
   });
 });

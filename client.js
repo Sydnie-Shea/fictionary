@@ -10,6 +10,8 @@ const sendButton = document.getElementById('send-button');
 const guessTimeButton = document.getElementById('guessTime');
 const nameEntry = document.getElementById('name');
 const joinButton = document.getElementById('join');
+const guessNum = document.getElementById('guessNum');
+const guessSubmit = document.getElementById('guess');
 
 newWordButton.style.display="none";
 acceptButton.style.display="none";
@@ -27,6 +29,8 @@ function getName(){
     appendMessage('You joined');
     socket.emit('new-user', name);  
 }
+guessNum.style.display="none";
+guessSubmit.style.display="none";
 
 
 
@@ -58,7 +62,7 @@ socket.on('show-word', word => {
     appendMessage(`${word} is the word for this round. Write a definition`)
     defWriting.style.display = "block";
     sendButton.style.display = "block";
-})
+});
 
 socket.on('fake-def-received', defInfo => {
     console.log("getting here");
@@ -66,10 +70,32 @@ socket.on('fake-def-received', defInfo => {
     if (defInfo['holder'] == socket.id) {
         appendMessage(`${defInfo['playerName']} submitted ${defInfo['def']}`);
     }
-})
+});
+
+socket.on('fake-def', turnInfo => {
+    if (socket.id != turnInfo["holdersid"]) {
+        guessNum.style.display = "block";
+        guessSubmit.style.display = "block";
+    }
+    for (word in turnInfo["defs"]) {
+        appendMessage(turnInfo["defs"][word]);
+    }
+});
+
+socket.on('round-ended', valueInfo => {
+    var names = valueInfo['names'];
+    var scores = valueInfo['scores'];
+    console.log(scores);
+    for (i = 0; i< names.length; i++) {
+        appendMessage(`${names[i]} has a score of ${scores[i]}`);
+    }
+    if (socket.id == valueInfo['sids'][0]){
+        socket.emit('started');
+    }
+});
 
 startButton.addEventListener('click', button => {
-    socket.emit('started', name);
+    socket.emit('started');
 });
 
 newWordButton.addEventListener('click', button => {
@@ -84,13 +110,28 @@ acceptButton.addEventListener('click', button => {
 });
 
 sendButton.addEventListener('click', button => {
-    button.preventDefault()
+    button.preventDefault();
     var def = defWriting.value;
     defWriting.value = "";
     defWriting.style.display = "none";
     sendButton.style.display = "none";
     socket.emit('submit-fake-def', def);
 });
+
+guessTimeButton.addEventListener('click', button => {
+    button.preventDefault();
+    guessTimeButton.style.display = "none";
+    socket.emit('show-fake-def');
+})
+
+guessSubmit.addEventListener('click', button => {
+    button.preventDefault();
+    var guess = parseInt(guessNum.value) - 1;
+    guessNum.value = "";
+    guessNum.style.display = "none";
+    guessSubmit.style.display = "none";
+    socket.emit("guessing", guess);
+})
 
 function appendMessage(message) {
     console.log(message);
