@@ -8,6 +8,8 @@ const acceptButton = document.getElementById('accept');
 const defWriting = document.getElementById('fakeDefinition');
 const sendButton = document.getElementById('send-button');
 const guessTimeButton = document.getElementById('guessTime');
+const nameEntry = document.getElementById('name');
+const joinButton = document.getElementById('join');
 const guessNum = document.getElementById('guessNum');
 const guessSubmit = document.getElementById('guess');
 
@@ -16,12 +18,20 @@ acceptButton.style.display="none";
 defWriting.style.display="none";
 sendButton.style.display="none";
 guessTimeButton.style.display="none";
+startButton.style.display="none";
+
+function getName(){
+    // const name = prompt('What is your name?');
+    const name = nameEntry.value;
+    nameEntry.style.display="none";
+    joinButton.style.display="none";
+    startButton.style.display="block";
+    appendMessage('You joined');
+    socket.emit('new-user', name);  
+}
 guessNum.style.display="none";
 guessSubmit.style.display="none";
 
-const name = prompt('What is your name?');
-appendMessage('You joined');
-socket.emit('new-user', name);
 
 
 socket.on('user-disconnected', name => {
@@ -126,6 +136,7 @@ guessSubmit.addEventListener('click', button => {
 function appendMessage(message) {
     console.log(message);
     const messageElement = document.createElement('div')
+    messageElement.setAttribute('class', 'appended')
     messageElement.innerText = message
     messageContainer.append(messageElement)
   }

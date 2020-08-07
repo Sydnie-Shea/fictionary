@@ -5,50 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat App</title>
+  <link href="styles.css" rel="stylesheet"/> 
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script defer src="client.js"></script>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    #message-container {
-      width: 80%;
-      max-width: 1200px;
-    }
-
-    #message-container div {
-      background-color: #CCC;
-      padding: 5px;
-    }
-
-    #message-container div:nth-child(2n) {
-      background-color: #FFF;
-    }
-
-    #send-container {
-      position: fixed;
-      padding-bottom: 30px;
-      bottom: 0;
-      background-color: white;
-      max-width: 1200px;
-      width: 80%;
-      display: flex;
-    }
-
-    #message-input {
-      flex-grow: 1;
-    }
-  </style>
 </head>
 <body>
-  <button id ="start">Start</button>
-  <button id ="newWord">New Word</button>
-  <button id ="accept">Accept Definition</button>
-  <button id = "guessTime">Time to Guess</button>
+  <header>
+    <img src="FictionaryLogo.png" alt=Fictionary height=150px width=200px/>
+  </header>
+  <input id="name" type="text" placeholder="Name">
+  <div id="buttons">
+    <button id="join" onclick="getName()">Join Game</button>
+    <button id ="start" >Start</button>
+    <button id ="newWord">New Word</button>
+    <button id ="accept">Accept Definition</button>
+    <button id = "guessTime">Time to Guess</button>
+  </div>
   <div id="message-container"></div>
   <form id="send-container" onSubmit="return false;">
     <input type="text" id="fakeDefinition">
