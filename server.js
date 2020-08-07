@@ -2,7 +2,7 @@ const Game = require('./game.js');
 const Player = require('./player.js');
 const Dictionary = require('./dictionary.js');
 
-const io = require('socket.io')(3000)
+const io = require('socket.io')(process.env.PORT || 3000)
 
 const users = {}
 
