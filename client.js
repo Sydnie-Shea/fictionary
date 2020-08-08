@@ -13,6 +13,7 @@ const joinButton = document.getElementById('join');
 const guessNum = document.getElementById('guessNum');
 const guessSubmit = document.getElementById('guess');
 const fakeDefForm = document.getElementById('send-container');
+const guessForm = document.getElementById('guess-container');
 
 newWordButton.style.display="none";
 acceptButton.style.display="none";
@@ -135,8 +136,14 @@ guessSubmit.addEventListener('click', button => {
     socket.emit("guessing", guess);
 })
 
-fakeDefForm.addEventListener('submit', () => {
+fakeDefForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     sendButton.click();
+});
+
+guessForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    guessSubmit.click();
 })
 
 function appendMessage(message) {
