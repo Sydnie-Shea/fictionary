@@ -22,9 +22,10 @@ io.on('connection', socket => {
 
   socket.on('disconnect', name => {
     console.log("disconneting");
-    socket.broadcast.emit('user-disconnected', users[socket.id].getName());
+    // socket.broadcast.emit('user-disconnected', users[socket.id].getName());
+    socket.broadcast.emit('user-disconnected', users[socket.id]);
     game.removePlayer(users[socket.id]);
-    delete users[socket.id]
+    // delete users[socket.id]
   });
 
   socket.on('started', () =>{
