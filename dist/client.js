@@ -1,4 +1,4 @@
-const url = 'http://fictionarybeta.herokuapp.com/';
+const url = 'https://fictionarybeta.herokuapp.com/';
 // url = 'http://localhost:3000';
 const socket = io(url);
 
