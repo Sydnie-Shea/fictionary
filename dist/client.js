@@ -1,4 +1,5 @@
-const url = process.env.NODE_ENV === "production" ? process.env.url : 'http://localhost:3000';
+const url = 'http://fictionarybeta.herokuapp.com/';
+// url = 'http://localhost:3000';
 const socket = io(url);
 
 
