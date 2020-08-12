@@ -1,10 +1,14 @@
+var app = require('express')();
+var http = require('http').createServer(app);
+var io = process.env ? require('socket.io')(http) : require('socket.io')(3000);
+
 const Game = require('./game.js');
 const Player = require('./player.js');
 const Dictionary = require('./dictionary.js');
 
-const io = require('socket.io')(process.env.PORT || 3000)
-
 const users = {}
+
+console.log('server running');
 
 
 //actually create dictionary class
@@ -22,9 +26,10 @@ io.on('connection', socket => {
 
   socket.on('disconnect', name => {
     console.log("disconneting");
-    socket.broadcast.emit('user-disconnected', users[socket.id].getName());
+    // socket.broadcast.emit('user-disconnected', users[socket.id].getName());
+    socket.broadcast.emit('user-disconnected', users[socket.id]);
     game.removePlayer(users[socket.id]);
-    delete users[socket.id]
+    // delete users[socket.id]
   });
 
   socket.on('started', () =>{
