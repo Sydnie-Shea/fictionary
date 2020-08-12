@@ -6,6 +6,8 @@ const io = require('socket.io')(process.env.PORT || 3000)
 
 const users = {}
 
+console.log('server running');
+
 
 //actually create dictionary class
 const dictionary = new Dictionary();
