@@ -1,7 +1,8 @@
 var app = require('express')();
 var http = require('http').createServer(app);
-var io = process.env ? require('socket.io')(http) : require('socket.io')(3000);
-
+//var io = process.env ? require('socket.io')(http) : require('socket.io')(3000);
+var io = require('socket.io')(http);
+console.log(pprocess.env);
 const Game = require('./game.js');
 const Player = require('./player.js');
 const Dictionary = require('./dictionary.js');
