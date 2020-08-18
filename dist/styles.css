@@ -1,89 +1,110 @@
+header{
+  margin-bottom: 40px;
+}
+
+
 body {
     height: 100%;
     margin: 20px;
     display: inline-flexbox;
     justify-content: center;
-    background-image: url("https://thewallpaper.co//wp-content/uploads/2016/03/simple-blue-background-wallpaper-high-resolution-images-iphone-wallpaper-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-digital-artwork-1920x1164.jpg");
-    height: 100%;
-    width: 100%;
+    background-image: url("wallpaper_fantasy_book.png");
+    background-size: cover;
+    /* background-image: url("https://thewallpaper.co//wp-content/uploads/2016/03/simple-blue-background-wallpaper-high-resolution-images-iphone-wallpaper-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-digital-artwork-1920x1164.jpg"); */
+    /* height: 50%; 
+    width: 50%; */
+  }
+
+  #name{
+    width: 200px;
+  }
+  
+  button{
+    margin-top: 10px;
+    background-color: black;
+    border: none;
+    height: 45px;
+    color: white;
+    padding: 2px 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: large;
+    font-weight: lighter;
+    letter-spacing: 0.07em;
+    font-style: normal;
   }
 
   #start{
       /* background-color: rgb(202, 174, 12); */
-      margin-top: 10px;
-      background-color: black;
-      border: none;
-      height: 45px;
       width: 75px;
-      color: white;
-      padding: 2px 10px;
-      font-family: "Courier New", Courier, monospace;   
-      font-size: medium;   
   }
 
   #newWord, #join{
-    margin-top: 10px;
-    background-color: black;
-    border: none;
-    height: 45px;
-    width: 120px;
-    color: white;
-    padding: 2px 10px;
-    font-family: "Courier New", Courier, monospace;   
-    font-size: medium;   
+    width: 120px;  
   }
 
   #accept, #guessTime{
-    margin-top: 10px;
-    background-color: black;
-    border: none;
-    height: 45px;
     width: 190px;
-    color: white;
-    padding: 2px 10px;
-    font-family: "Courier New", Courier, monospace;   
-    font-size: medium;   
   }
 
   #message-container {
+    color: white; /* for now */
     width: 70%;
+    min-height: 100px;
     max-width: 700px;
-    max-height: 100px;
+    max-height: 300px;
+    /* background-color: white; */
     overflow: scroll;
     margin-top: 50px;
-    border-style: solid;
-    border-color: rgb(53, 55, 61);
+    border-style: none;
+    /* border-color: rgb(53, 55, 61); */
+    /* border-radius: 6px; */
+    
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
   }
 
   #message-container div {
-    background-color: #CCC;
+    /* background-color: #CCC; */
     padding: 5px;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    white-space: nowrap; /* Keeps the content on a single line */
+    /* letter-spacing: .15em; Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
   }
 
   #message-container div:nth-child(2n) {
-    background-color: #FFF;
+    /* background-color: #FFF; */
+    padding-top: 10px; /* for now */
   }
 
   #send-container {
     position: fixed;
     padding-top: 30px;
     /* bottom: 20px; */
-    max-width: 1500px;
-    width: 80%;
+    max-width: 200px;
+    width: 100%; 
     display: flex;
   }
 
   #send-button{
-    background-color: black;
-    border: none;
-    height: 45px;
+    width: 75px;
+    color: white;
+    padding: 2px 10px;  
+    margin-top: 30px;
+    margin-left: 235px;
+  }
+
+  #guess{
     width: 75px;
     color: white;
     padding: 2px 10px;
-    font-family: "Courier New", Courier, monospace;   
-    font-size: large;   
-    margin-top: 30px;
-    margin-left: 235px;
+    margin-left: 200px;
   }
   /* #send-button, #join {
     background-color: rgb(202, 174, 12);
@@ -99,24 +120,62 @@ body {
   }
 
   .appended {
-    font-family: "Courier New", Courier, monospace;
-  }
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: large;
+    font-weight: lighter;
+    letter-spacing: 0.07em;
+    font-style: normal;  }
 
   input[type=text] {
-    width: 20%;
+    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid black;
     background-color: transparent;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
     font-size: large;
-    color: black;
+    font-weight: lighter;
+    letter-spacing: 0.07em;
+    font-style: normal;
+    color: white;
+  }
+
+  #guess-container{
+    /* width: 10%;
+    max-width: 100px; */
+    position: fixed;
+    /* padding-top: 30px; */
+    /* bottom: 20px; */
+    max-width: 200px;
+    /* width: 100%;  */
+    display: inline;
+  }
+
+  input[type=number] {
+    width: 100%;
+    padding: 12px 7px;
+    margin: 8px 0;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: solid;
+    /* border-bottom: 2px solid black; */
+    background-color: transparent;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: large;
+    font-weight: lighter;
+    letter-spacing: 0.07em;
+    font-style: normal;
+    color: white;
   }
 
   ::placeholder{
     color: black;
     font-size: large;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: large;
+    font-weight: lighter;
+    letter-spacing: 0.07em;
+    font-style: normal;
   }
