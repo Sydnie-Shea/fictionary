@@ -8,7 +8,7 @@ body {
     margin: 20px;
     display: inline-flexbox;
     justify-content: center;
-    background-image: url("/wallpapers/wallpaper_fantasy_book.png");
+    background-image: url("wallpaper_fantasy_book.png");
     background-size: cover;
     /* background-image: url("https://thewallpaper.co//wp-content/uploads/2016/03/simple-blue-background-wallpaper-high-resolution-images-iphone-wallpaper-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-digital-artwork-1920x1164.jpg"); */
     /* height: 50%; 
