@@ -1,6 +1,6 @@
 var app = require('express')();
 var http = require('http').createServer(app);
-var io = process.env ? require('socket.io')(http) : require('socket.io')(3000);
+var io = process.env ? require('socket.io')(http).listen(process.env.PORT) : require('socket.io')(3000);
 
 const Game = require('./game.js');
 const Player = require('./player.js');
